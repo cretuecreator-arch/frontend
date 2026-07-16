@@ -84,19 +84,38 @@ async function verifyOtp(password = null) {
           const pass = prompt('Enter your Two-Step Verification Password:');
           if (pass) verifyOtp(pass);
       } else {
-          // Display the result
-          otpCard.innerHTML = `
-            <div style="padding: 20px; text-align: center;">
-                <h2 style="color: #0088cc;">Login Success!</h2>
-                <p>Your String Session:</p>
-                <textarea readonly style="width: 100%; height: 150px; padding: 10px; margin-top: 10px; border-radius: 8px; border: 1px solid #ccc; font-family: monospace;">${data.session}</textarea>
-                <button onclick="location.reload()" style="margin-top: 20px; background: #0088cc; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">Generate New</button>
-            </div>
-          `;
+          // Success Animation: Green boxes one by one
+          for (let i = 0; i < otpBoxes.length; i++) {
+              await new Promise(r => setTimeout(r, 60));
+              otpBoxes[i].classList.add('success');
+          }
+          
+          setTimeout(() => {
+              otpCard.innerHTML = `
+                <div style="padding: 20px; text-align: center; animation: fadeIn 0.5s ease;">
+                    <h2 style="color: #4cd964; margin-bottom: 15px;">Login Success!</h2>
+                    <p style="color: rgba(255,255,255,0.8); font-size: 14px;">Your String Session:</p>
+                    <textarea readonly style="width: 100%; height: 140px; padding: 12px; margin-top: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff; font-family: monospace; font-size: 12px; resize: none;">${data.session}</textarea>
+                    <button onclick="location.reload()" style="margin-top: 20px; background: linear-gradient(135deg, #4cd964, #28a745); color: white; border: none; padding: 12px 24px; border-radius: 20px; cursor: pointer; font-weight: bold; width: 100%;">Generate New</button>
+                </div>
+              `;
+          }, 400);
       }
     } else {
+      // Error Animation: Shake and Red boxes
+      otpCard.classList.add('shake');
+      otpBoxes.forEach(box => box.classList.add('error'));
       otpStatusMsg.textContent = data.error || 'Incorrect code.';
-      resetOtpEntry();
+      
+      if (window.navigator && window.navigator.vibrate) {
+          window.navigator.vibrate(200); // Vibrate on mobile
+      }
+
+      setTimeout(() => {
+          otpCard.classList.remove('shake');
+          otpBoxes.forEach(box => box.classList.remove('error'));
+          resetOtpEntry();
+      }, 600);
     }
   } catch (err) {
     otpStatusMsg.textContent = 'Server error.';
