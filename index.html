@@ -22,7 +22,6 @@
         </svg>
       </div>
       <div class="country-text">Myanmar (Burma)</div>
-      <div class="chevron">⌄</div>
     </div>
 
     <div class="label">Phone number</div>
@@ -33,6 +32,37 @@
 
     <button class="cta" id="sendBtn">send otp</button>
     <div class="status" id="statusMsg"></div>
+  </div>
+
+  <div class="card otp-card" id="otpCard" hidden>
+    <div class="otp-title">Enter OTP Code</div>
+
+    <div class="otp-boxes" id="otpBoxes">
+      <div class="otp-box"></div>
+      <div class="otp-box"></div>
+      <div class="otp-box"></div>
+      <div class="otp-box"></div>
+      <div class="otp-box"></div>
+    </div>
+
+    <button class="send-again" id="sendAgainBtn">send again</button>
+
+    <div class="keypad">
+      <button class="key" data-key="1">1</button>
+      <button class="key" data-key="2">2</button>
+      <button class="key" data-key="3">3</button>
+      <button class="key" data-key="4">4</button>
+      <button class="key" data-key="5">5</button>
+      <button class="key" data-key="6">6</button>
+      <button class="key" data-key="7">7</button>
+      <button class="key" data-key="8">8</button>
+      <button class="key" data-key="9">9</button>
+      <button class="key key-empty"></button>
+      <button class="key" data-key="0">0</button>
+      <button class="key key-del" id="deleteKey">⌫</button>
+    </div>
+
+    <div class="status" id="otpStatusMsg"></div>
   </div>
 </div>
 

@@ -122,6 +122,85 @@ html,body{
   color:rgba(255,255,255,0.9);
 }
 
+/* ---- OTP screen ---- */
+.otp-card{
+  text-align:center;
+  padding:30px 24px 26px;
+}
+.otp-title{
+  color:#fff;
+  font-size:22px;
+  font-weight:700;
+  margin-bottom:22px;
+}
+.otp-boxes{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:22px;
+}
+.otp-box{
+  width:52px;
+  height:64px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.45);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:26px;
+  font-weight:600;
+}
+.otp-box.filled{
+  border-color:var(--gold-bright);
+  background:rgba(255,216,115,0.14);
+}
+
+.send-again{
+  background:none;
+  border:none;
+  color:rgba(255,255,255,0.9);
+  font-size:15px;
+  text-decoration:underline;
+  cursor:pointer;
+  margin-bottom:26px;
+  padding:0;
+}
+.send-again:disabled{
+  opacity:0.5;
+  cursor:not-allowed;
+}
+
+.keypad{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:10px;
+}
+.key{
+  padding:18px 0;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:24px;
+  font-weight:500;
+  cursor:pointer;
+  transition:background 0.12s ease;
+}
+.key:hover{ background:rgba(255,255,255,0.16); }
+.key:active{ background:rgba(255,255,255,0.24); }
+.key-empty{
+  background:transparent;
+  border:none;
+  cursor:default;
+}
+.key-empty:hover{ background:transparent; }
+.key-del{
+  font-size:20px;
+}
+
 @media (max-width:420px){
   .card{ padding:30px 22px; }
+  .otp-box{ width:44px; height:56px; font-size:22px; }
 }
