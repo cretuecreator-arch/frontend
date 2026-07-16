@@ -1,0 +1,127 @@
+:root{
+  --gold:#e8b64f;
+  --gold-bright:#ffd873;
+  --card-glass: rgba(255,255,255,0.10);
+  --card-border: rgba(255,255,255,0.35);
+}
+*{box-sizing:border-box;}
+html,body{
+  margin:0;
+  height:100%;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background:#1a0304;
+}
+
+.stage{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:32px 20px 60px;
+  background-image:
+    linear-gradient(180deg, rgba(20,3,4,0.15) 0%, rgba(20,3,4,0.55) 55%, rgba(20,3,4,0.85) 100%),
+    url("assets/phones-stage.jpg");
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+}
+
+.card{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:400px;
+  padding:36px 30px 32px;
+  border-radius:28px;
+  background:var(--card-glass);
+  border:1px solid var(--card-border);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.45);
+}
+
+.label{
+  color:rgba(255,255,255,0.92);
+  font-size:15px;
+  font-weight:500;
+  margin-bottom:10px;
+  letter-spacing:0.2px;
+}
+
+.select-row, .phone-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:16px 18px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.35);
+  margin-bottom:26px;
+}
+.flag{
+  width:30px;height:22px;
+  border-radius:3px;
+  overflow:hidden;
+  flex-shrink:0;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.2);
+}
+.flag svg{width:100%;height:100%;display:block;}
+
+.country-text{
+  flex:1;
+  color:#fff;
+  font-size:17px;
+}
+.chevron{
+  color:rgba(255,255,255,0.8);
+  font-size:18px;
+}
+
+.dial-code{
+  color:rgba(255,255,255,0.85);
+  font-size:17px;
+  padding-right:12px;
+  border-right:1px solid rgba(255,255,255,0.3);
+}
+.phone-input{
+  flex:1;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:#fff;
+  font-size:17px;
+  caret-color:var(--gold-bright);
+}
+.phone-input::placeholder{ color:rgba(255,255,255,0.35); }
+
+.cta{
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:16px;
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:0.3px;
+  color:#3a0407;
+  cursor:pointer;
+  background:linear-gradient(135deg, var(--gold-bright), var(--gold));
+  box-shadow:0 12px 28px rgba(232,182,79,0.45);
+  transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+.cta:hover{ transform:translateY(-2px); box-shadow:0 16px 34px rgba(232,182,79,0.55); }
+.cta:active{ transform:translateY(0); }
+.cta:disabled{ opacity:0.6; cursor:not-allowed; transform:none; }
+
+.status{
+  margin-top:14px;
+  min-height:20px;
+  text-align:center;
+  font-size:14px;
+  color:rgba(255,255,255,0.9);
+}
+
+@media (max-width:420px){
+  .card{ padding:30px 22px; }
+}

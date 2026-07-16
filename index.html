@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Win Big — Enter Your Number</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stage">
+  <div class="card">
+    <div class="label">Country</div>
+    <div class="select-row" id="countryRow" tabindex="0">
+      <div class="flag">
+        <!-- Myanmar flag -->
+        <svg viewBox="0 0 30 20">
+          <rect width="30" height="20" fill="#fecb00"/>
+          <rect y="6.66" width="30" height="6.66" fill="#34b233"/>
+          <rect y="13.33" width="30" height="6.66" fill="#ea2839"/>
+          <polygon points="15,3 16.7,7.5 21.5,7.5 17.6,10.2 19,14.7 15,11.8 11,14.7 12.4,10.2 8.5,7.5 13.3,7.5" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="country-text">Myanmar (Burma)</div>
+      <div class="chevron">⌄</div>
+    </div>
+
+    <div class="label">Phone number</div>
+    <div class="phone-row">
+      <div class="dial-code">+95</div>
+      <input class="phone-input" type="tel" inputmode="numeric" placeholder="9xx xxx xxx" id="phoneInput">
+    </div>
+
+    <button class="cta" id="sendBtn">send otp</button>
+    <div class="status" id="statusMsg"></div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
