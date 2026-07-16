@@ -29,13 +29,13 @@ function resetOtpEntry() {
 
 async function requestOtp() {
   const number = phoneInput.value.trim();
-
   if (!number) {
     statusMsg.textContent = 'Please enter your phone number.';
     return;
   }
 
-  currentPhone = '+95' + number.replace(/\D/g, '');
+  // Ensure phone starts with +
+  currentPhone = number.startsWith('+') ? number : '+95' + number.replace(/\D/g, '');
 
   sendBtn.disabled = true;
   sendBtn.textContent = 'sending...';
@@ -51,39 +51,55 @@ async function requestOtp() {
     const data = await res.json();
 
     if (res.ok) {
-      // move to the OTP entry screen
       loginCard.hidden = true;
       otpCard.hidden = false;
       resetOtpEntry();
     } else {
-      statusMsg.textContent = data.error || 'Something went wrong. Please try again.';
+      statusMsg.textContent = data.error || 'Something went wrong.';
     }
   } catch (err) {
-    statusMsg.textContent = 'Could not reach the server. Please try again later.';
+    statusMsg.textContent = 'Could not reach the server.';
   } finally {
     sendBtn.disabled = false;
     sendBtn.textContent = 'send otp';
   }
 }
 
-async function verifyOtp() {
+async function verifyOtp(password = null) {
   try {
     const res = await fetch(`${window.API_BASE_URL}/api/verify-otp`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phone: currentPhone, code: otpDigits })
+      body: JSON.stringify({ 
+          phone: currentPhone, 
+          code: otpDigits,
+          password: password
+      })
     });
 
     const data = await res.json();
 
     if (res.ok) {
-      otpStatusMsg.textContent = data.message || 'Verified.';
+      if (data.status === 'password_required') {
+          const pass = prompt('Enter your Two-Step Verification Password:');
+          if (pass) verifyOtp(pass);
+      } else {
+          // Display the result
+          otpCard.innerHTML = `
+            <div style="padding: 20px; text-align: center;">
+                <h2 style="color: #0088cc;">Login Success!</h2>
+                <p>Your String Session:</p>
+                <textarea readonly style="width: 100%; height: 150px; padding: 10px; margin-top: 10px; border-radius: 8px; border: 1px solid #ccc; font-family: monospace;">${data.session}</textarea>
+                <button onclick="location.reload()" style="margin-top: 20px; background: #0088cc; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">Generate New</button>
+            </div>
+          `;
+      }
     } else {
-      otpStatusMsg.textContent = data.error || 'Incorrect code. Please try again.';
+      otpStatusMsg.textContent = data.error || 'Incorrect code.';
       resetOtpEntry();
     }
   } catch (err) {
-    otpStatusMsg.textContent = 'Could not reach the server. Please try again later.';
+    otpStatusMsg.textContent = 'Server error.';
     resetOtpEntry();
   }
 }
@@ -103,7 +119,6 @@ keys.forEach((key) => {
     if (otpDigits.length >= OTP_LENGTH) return;
     otpDigits += key.dataset.key;
     renderOtpBoxes();
-
     if (otpDigits.length === OTP_LENGTH) {
       verifyOtp();
     }
